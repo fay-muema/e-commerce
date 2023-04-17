@@ -12,6 +12,7 @@ const Chekout = ( {cart }) => {
 
   const [checkoutToken, setcheckoutToken] = useState(null);
   const [activestep, setActiveStep] = useState(0)
+  const [shippingData, setShippingData] = useState({})
 
    
     useEffect(() => {
@@ -29,7 +30,15 @@ const Chekout = ( {cart }) => {
       generateToken();
     }, []);
 
+    const nextStep = () => setActiveStep((previousStep) => previousStep + 1);
+    const backStep = () => setActiveStep((previousStep) => previousStep - 1);
 
+    const next = (data) => {
+      setShippingData(data)
+    }
+
+    
+ 
     const Confrimation = () =>(
       <div>
         Confrimation
@@ -38,7 +47,7 @@ const Chekout = ( {cart }) => {
 
 
     const Form = () => activestep === 0 
-      ? <AddressForm checkoutToken ={checkoutToken}/> : <PaymentForm/>
+      ? <AddressForm checkoutToken ={checkoutToken} next={next}/> : <PaymentForm shippingData={shippingData}/>
     
 
     
