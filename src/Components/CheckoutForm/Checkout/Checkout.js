@@ -20,7 +20,6 @@ const Chekout = ( {cart }) => {
         try {
           const token = await commerce.checkout.generateToken(cart.id, {type: 'cart'})
 
-          console.log(token);
           setcheckoutToken(token)
           
         } catch (error) {
@@ -34,7 +33,9 @@ const Chekout = ( {cart }) => {
     const backStep = () => setActiveStep((previousStep) => previousStep - 1);
 
     const next = (data) => {
-      setShippingData(data)
+      setShippingData(data);
+
+      nextStep();
     }
 
     
@@ -47,7 +48,7 @@ const Chekout = ( {cart }) => {
 
 
     const Form = () => activestep === 0 
-      ? <AddressForm checkoutToken ={checkoutToken} next={next}/> : <PaymentForm shippingData={shippingData}/>
+      ? <AddressForm checkoutToken ={checkoutToken} next={next}/> : <PaymentForm shippingData={shippingData} checkoutToken ={checkoutToken}/>
     
 
     
